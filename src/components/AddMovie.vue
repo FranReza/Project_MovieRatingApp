@@ -16,11 +16,15 @@
         <v-select 
             label="Año de publicacion"
             v-model="release_year"
+            required
+            :rules="releaseRules"
             :items="years"
         ></v-select>
         <v-text-field
             label="Genero:"
             v-model="genre"
+            required
+            :rules="genreRules"
         ></v-text-field>
         <v-btn
             @click="submit"
@@ -43,6 +47,13 @@ export default {
         release_year: '',
         nameRules: [
             v => !!v || 'se requiere el nombre de la pelicula'
+        ],
+        genreRules: [
+            v => !! v || 'Se requiere genero',
+            v => (v && v.length <= 80) || "El genero de la pelicula debe ser de 80 caracteres"
+        ],
+        releaseRules: [
+            v => !! v || 'se requiere el año de publicacion'
         ],
         select: null,
         years: [
@@ -74,14 +85,21 @@ export default {
                         },
                     })
                     .then(() => {
+                        this.$swal(
+                            'Grandioso!',
+                            'Pelicula agregada satisfactoriamente!',
+                            'success',
+                        );
                         this.$router.push({ name: 'Home' });
                         this.$refs.form.reset();
                     })
                     .catch(() => {
-
+                        this.$swal(
+                            'Oh no!',
+                            'No se pudo agregar mi pana :(',
+                            'error',
+                        );
                     });
-            } else {
-                console.log("no jala perrin");
             }
             return true;
         },
