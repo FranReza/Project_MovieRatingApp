@@ -8,7 +8,8 @@
                         <span class="grey--text"> {{ movie.release_year }} . {{ movie.genre }} </span>
                     </div>
                 </v-card-title>
-                <h6 class="card-title" v-if="current_user" @click="rate">Valorar pelicula</h6>
+                <!--<h6 class="card-title" v-if="current_user" @click="rate">Valorar pelicula</h6>-->
+                <h6 class="card-title" @click="rate">Valorar pelicula</h6>
                 <v-card-text>
                     {{ movie.description }}
                 </v-card-text>
@@ -88,7 +89,7 @@ export default {
                 url: `http://localhost:8081/api/movies/${this.$route.params.id}`,                
             })
              .then((response) => {
-                 this.movie == response.data;
+                 this.movie = response.data;
              })
              .catch(() => {
 

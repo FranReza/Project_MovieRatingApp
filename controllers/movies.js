@@ -14,7 +14,7 @@ app.get('/movies', (req, res) => {
 
 //obtener una sola pelicula 
 app.get('/api/movies/:id', (req, res) => {
-    MovieSchema.findById(req.param.id, 'name description release_year genre',(error, movie) => {
+    MovieSchema.findById(req.params.id, 'name description release_year genre',(error, movie) => {
         if (error) { console.error(error); }
         res.send(movie);
     });
