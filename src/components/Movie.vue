@@ -8,7 +8,7 @@
                         <span class="grey--text"> {{ movie.release_year }} . {{ movie.genre }} </span>
                     </div>
                 </v-card-title>
-                <h6 class="card-title" v-if="current_user">Rese&ntilde;ar pelicula</h6>
+                <h6 class="card-title" v-if="current_user" @click="rate">Valorar pelicula</h6>
                 <v-card-text>
                     {{ movie.description }}
                 </v-card-text>
@@ -64,8 +64,23 @@ export default {
                     },
                 },
             }).then(() => {
-                
-            })
+                const movieId = this.$$route.params.id
+                return axios({
+                  method: 'post',
+                  data: {
+                      rate: state.note,
+                  },
+                  url: `http://localhost:8081/movies/rate/${movieId}`,
+                  headers: {'Content-Type': 'application/json',},
+                })
+                .then(() => {
+                     this.$swal(`Gracias por su valoracion! ${state.note}`, 'success'); 
+                })
+                .catch((error) => {
+                const mensaje  = error.response.data.message;
+               this.$swal('Ocurrio un problema', `${mensaje}`, 'error');
+                });
+            });
         },
         async fetchMovie(){
             return axios({
