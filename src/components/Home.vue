@@ -20,6 +20,7 @@
   </v-layout>
 </template>
 <script>
+/* eslint-disable */
 import axios from 'axios'
 
 export default {

@@ -18,6 +18,7 @@
     </v-layout>
 </template>
 <script>
+/* eslint-disable */
 import axios from 'axios';
 import Vue from 'vue';
 import StarRating from 'vue-star-rating';
